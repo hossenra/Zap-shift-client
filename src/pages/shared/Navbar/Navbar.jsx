@@ -35,7 +35,8 @@ const Navbar = () => {
         </>
       )}
       <li>
-        <NavLink to="/about">About Us</NavLink>
+        <NavLink to="/beARider"> Be a Rider</NavLink>
+        {/* <NavLink to="/about">About Us</NavLink> */}
       </li>
     </>
   );
@@ -67,9 +68,9 @@ const Navbar = () => {
             {navItems}
           </ul>
         </div>
-        <a className="btn btn-ghost text-xl">
+        <span className="btn btn-ghost text-xl">
           <ProFastLogo />
-        </a>
+        </span>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{navItems}</ul>

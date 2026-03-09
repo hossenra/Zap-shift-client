@@ -6,6 +6,8 @@ import {
   FiCreditCard,
   FiMapPin,
   FiUser,
+  FiUsers,
+  FiClock,
 } from "react-icons/fi";
 
 const DashboardLayout = () => {
@@ -79,6 +81,20 @@ const DashboardLayout = () => {
             <NavLink to="/dashboard/track" className={linkClass}>
               <FiMapPin className="text-lg" />
               <span>Track a Package</span>
+            </NavLink>
+          </li>
+
+          <li>
+            <NavLink to="/dashboard/activeRiders" className={linkClass}>
+              <FiUsers className="text-lg" />
+              <span>Active Riders</span>
+            </NavLink>
+          </li>
+
+          <li>
+            <NavLink to="/dashboard/pendingRiders" className={linkClass}>
+              <FiClock className="text-lg" />
+              <span>Pending Riders</span>
             </NavLink>
           </li>
 
