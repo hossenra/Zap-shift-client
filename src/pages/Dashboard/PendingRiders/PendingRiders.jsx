@@ -32,16 +32,16 @@ const PendingRiders = () => {
 
   const updateRiderStatus = async (
     rider,
-    status,
+    updateData,
     successTitle,
     successText,
   ) => {
     try {
       setActionLoadingId(rider._id);
 
-      const res = await axiosSecure.patch(`/riders/${rider._id}`, { status });
+      const res = await axiosSecure.patch(`/riders/${rider._id}`, updateData);
 
-      if (res.data?.modifiedCount > 0) {
+      if (res.data?.success) {
         Swal.fire({
           icon: "success",
           title: successTitle,
@@ -55,6 +55,12 @@ const PendingRiders = () => {
         }
 
         refetch();
+      } else {
+        Swal.fire({
+          icon: "info",
+          title: "No changes made",
+          text: "The rider data was already updated.",
+        });
       }
     } catch (error) {
       console.error(error);
@@ -83,7 +89,7 @@ const PendingRiders = () => {
 
     updateRiderStatus(
       rider,
-      "active",
+      { status: "active", role: "rider", email: rider.email },
       "Approved",
       `${rider.name} is now an active rider.`,
     );
@@ -104,7 +110,7 @@ const PendingRiders = () => {
 
     updateRiderStatus(
       rider,
-      "cancelled",
+      { status: "cancelled", email: rider.email },
       "Application Cancelled",
       `${rider.name}'s application has been cancelled.`,
     );

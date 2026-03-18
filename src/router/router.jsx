@@ -15,6 +15,11 @@ import TrackParcel from "../pages/Dashboard/TrackParcel/TrackParcel";
 import BeARider from "../pages/Dashboard/BeARider/BeARider";
 import ActiveRiders from "../pages/Dashboard/ActiveRiders/ActiveRiders";
 import PendingRiders from "../pages/Dashboard/PendingRiders/PendingRiders";
+import MakeAdmin from "../pages/Dashboard/MakeAdmin/MakeAdmin";
+import Forbidden from "../pages/Forbidden";
+import AdminRoutes from "../routes/AdminRoutes";
+import AssignRider from "../pages/Dashboard/AssignRider/AssignRider";
+// import Profile from "../pages/Dashboard/Profile/Profile";
 
 export const router = createBrowserRouter([
   {
@@ -26,24 +31,28 @@ export const router = createBrowserRouter([
         Component: Home,
       },
       {
-        path: "/coverage",
+        path: "coverage",
         Component: Coverage,
         loader: () => fetch("./serviceCenters.json"),
+      },
+      {
+        path: "forbidden",
+        Component: Forbidden,
       },
       {
         path: "beARider",
         element: (
           <PrivateRoute>
-            <BeARider></BeARider>
+            <BeARider />
           </PrivateRoute>
         ),
         loader: () => fetch("./serviceCenters.json"),
       },
       {
-        path: "/sendParcel",
+        path: "sendParcel",
         element: (
           <PrivateRoute>
-            <SendParcel></SendParcel>
+            <SendParcel />
           </PrivateRoute>
         ),
         loader: () => fetch("./serviceCenters.json"),
@@ -55,11 +64,11 @@ export const router = createBrowserRouter([
     Component: AuthLayout,
     children: [
       {
-        path: "/login",
+        path: "login",
         Component: Login,
       },
       {
-        path: "/register",
+        path: "register",
         Component: Register,
       },
     ],
@@ -68,10 +77,14 @@ export const router = createBrowserRouter([
     path: "/dashboard",
     element: (
       <PrivateRoute>
-        <DashboardLayout></DashboardLayout>
+        <DashboardLayout />
       </PrivateRoute>
     ),
     children: [
+      {
+        index: true,
+        Component: MyParcels,
+      },
       {
         path: "myParcels",
         Component: MyParcels,
@@ -89,13 +102,46 @@ export const router = createBrowserRouter([
         Component: TrackParcel,
       },
       {
+        path: "be-a-rider",
+        element: <BeARider />,
+        loader: () => fetch("./serviceCenters.json"),
+      },
+      {
         path: "activeRiders",
-        Component: ActiveRiders,
+        element: (
+          <AdminRoutes>
+            <ActiveRiders />
+          </AdminRoutes>
+        ),
+      },
+      {
+        path: "assign-rider",
+        element: (
+          <AdminRoutes>
+            <AssignRider />
+          </AdminRoutes>
+        ),
       },
       {
         path: "pendingRiders",
-        Component: PendingRiders,
+        element: (
+          <AdminRoutes>
+            <PendingRiders />
+          </AdminRoutes>
+        ),
       },
+      {
+        path: "make-admin",
+        element: (
+          <AdminRoutes>
+            <MakeAdmin />
+          </AdminRoutes>
+        ),
+      },
+      // {
+      //   path: "profile",
+      //   Component: Profile,
+      // },
     ],
   },
 ]);

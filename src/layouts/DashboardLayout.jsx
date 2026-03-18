@@ -8,18 +8,33 @@ import {
   FiUser,
   FiUsers,
   FiClock,
+  FiShield,
+  FiTruck,
 } from "react-icons/fi";
+import useUserRole from "../hooks/useUserRole";
 
 const DashboardLayout = () => {
+  const { role, roleLoading } = useUserRole();
+
   const linkClass = ({ isActive }) =>
-    `flex items-center gap-3 ${isActive ? "active font-semibold" : ""}`;
+    `flex items-center gap-3 rounded-lg px-3 py-2 transition ${
+      isActive ? "bg-base-300 font-semibold" : "hover:bg-base-300/60"
+    }`;
+
+  if (roleLoading) {
+    return (
+      <div className="flex min-h-screen items-center justify-center">
+        <span className="loading loading-spinner loading-lg"></span>
+      </div>
+    );
+  }
 
   return (
     <div className="drawer lg:drawer-open">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
 
       <div className="drawer-content flex flex-col">
-        <div className="navbar bg-base-300 w-full lg:hidden">
+        <div className="navbar w-full bg-base-300 lg:hidden">
           <div className="flex-none">
             <label
               htmlFor="my-drawer-2"
@@ -41,20 +56,23 @@ const DashboardLayout = () => {
               </svg>
             </label>
           </div>
-          <div className="mx-2 flex-1 px-2 lg:hidden">Dashboard</div>
+          <div className="mx-2 flex-1 px-2">Dashboard</div>
         </div>
 
         <Outlet />
       </div>
 
-      <div className="drawer-side">
+      <div className="drawer-side z-40">
         <label
           htmlFor="my-drawer-2"
           aria-label="close sidebar"
           className="drawer-overlay"
         />
-        <ul className="menu bg-base-200 min-h-full w-80 p-4">
-          <ProFastLogo />
+
+        <ul className="menu min-h-full w-80 space-y-1 bg-base-200 p-4">
+          <div className="mb-4">
+            <ProFastLogo />
+          </div>
 
           <li>
             <NavLink to="/" className={linkClass}>
@@ -84,26 +102,64 @@ const DashboardLayout = () => {
             </NavLink>
           </li>
 
-          <li>
-            <NavLink to="/dashboard/activeRiders" className={linkClass}>
-              <FiUsers className="text-lg" />
-              <span>Active Riders</span>
-            </NavLink>
-          </li>
+          {role === "user" && (
+            <li>
+              <NavLink to="/dashboard/be-a-rider" className={linkClass}>
+                <FiTruck className="text-lg" />
+                <span>Be A Rider</span>
+              </NavLink>
+            </li>
+          )}
 
-          <li>
-            <NavLink to="/dashboard/pendingRiders" className={linkClass}>
-              <FiClock className="text-lg" />
-              <span>Pending Riders</span>
-            </NavLink>
-          </li>
+          {role === "admin" && (
+            <>
+              <li>
+                <NavLink to="/dashboard/activeRiders" className={linkClass}>
+                  <FiUsers className="text-lg" />
+                  <span>Active Riders</span>
+                </NavLink>
+              </li>
 
-          <li>
-            <NavLink to="/dashboard/profile" className={linkClass}>
-              <FiUser className="text-lg" />
-              <span>Update Profile</span>
-            </NavLink>
-          </li>
+              <li>
+                <NavLink to="/dashboard/pendingRiders" className={linkClass}>
+                  <FiClock className="text-lg" />
+                  <span>Pending Riders</span>
+                </NavLink>
+              </li>
+
+              <li>
+                <NavLink to="/dashboard/assign-rider" className={linkClass}>
+                  <FiTruck className="text-lg" />
+                  <span>Assign Rider</span>
+                </NavLink>
+              </li>
+
+              <li>
+                <NavLink to="/dashboard/make-admin" className={linkClass}>
+                  <FiShield className="text-lg" />
+                  <span>Make Admin</span>
+                </NavLink>
+              </li>
+            </>
+          )}
+
+          {role === "rider" && (
+            <li>
+              <NavLink to="/dashboard/profile" className={linkClass}>
+                <FiUser className="text-lg" />
+                <span>Rider Profile</span>
+              </NavLink>
+            </li>
+          )}
+
+          {(role === "user" || role === "admin") && (
+            <li>
+              <NavLink to="/dashboard/profile" className={linkClass}>
+                <FiUser className="text-lg" />
+                <span>Update Profile</span>
+              </NavLink>
+            </li>
+          )}
         </ul>
       </div>
     </div>
