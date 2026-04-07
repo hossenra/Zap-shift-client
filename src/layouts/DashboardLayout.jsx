@@ -81,26 +81,30 @@ const DashboardLayout = () => {
             </NavLink>
           </li>
 
-          <li>
-            <NavLink to="/dashboard/myParcels" className={linkClass}>
-              <FiPackage className="text-lg" />
-              <span>My Parcels</span>
-            </NavLink>
-          </li>
+          {(role === "user" || role === "admin") && (
+            <>
+              <li>
+                <NavLink to="/dashboard/myParcels" className={linkClass}>
+                  <FiPackage className="text-lg" />
+                  <span>My Parcels</span>
+                </NavLink>
+              </li>
 
-          <li>
-            <NavLink to="/dashboard/paymentHistory" className={linkClass}>
-              <FiCreditCard className="text-lg" />
-              <span>Payment History</span>
-            </NavLink>
-          </li>
+              <li>
+                <NavLink to="/dashboard/paymentHistory" className={linkClass}>
+                  <FiCreditCard className="text-lg" />
+                  <span>Payment History</span>
+                </NavLink>
+              </li>
 
-          <li>
-            <NavLink to="/dashboard/track" className={linkClass}>
-              <FiMapPin className="text-lg" />
-              <span>Track a Package</span>
-            </NavLink>
-          </li>
+              <li>
+                <NavLink to="/dashboard/track" className={linkClass}>
+                  <FiMapPin className="text-lg" />
+                  <span>Track a Package</span>
+                </NavLink>
+              </li>
+            </>
+          )}
 
           {role === "user" && (
             <li>
@@ -109,6 +113,37 @@ const DashboardLayout = () => {
                 <span>Be A Rider</span>
               </NavLink>
             </li>
+          )}
+
+          {role === "rider" && (
+            <>
+              <li>
+                <NavLink
+                  to="/dashboard/pending-deliveries"
+                  className={linkClass}
+                >
+                  <FiPackage className="text-lg" />
+                  <span>Pending Deliveries</span>
+                </NavLink>
+              </li>
+
+              <li>
+                <NavLink
+                  to="/dashboard/completed-deliveries"
+                  className={linkClass}
+                >
+                  <FiTruck className="text-lg" />
+                  <span>Completed Deliveries</span>
+                </NavLink>
+              </li>
+
+              <li>
+                <NavLink to="/dashboard/profile" className={linkClass}>
+                  <FiUser className="text-lg" />
+                  <span>Rider Profile</span>
+                </NavLink>
+              </li>
+            </>
           )}
 
           {role === "admin" && (
@@ -141,15 +176,6 @@ const DashboardLayout = () => {
                 </NavLink>
               </li>
             </>
-          )}
-
-          {role === "rider" && (
-            <li>
-              <NavLink to="/dashboard/profile" className={linkClass}>
-                <FiUser className="text-lg" />
-                <span>Rider Profile</span>
-              </NavLink>
-            </li>
           )}
 
           {(role === "user" || role === "admin") && (

@@ -18,7 +18,10 @@ import PendingRiders from "../pages/Dashboard/PendingRiders/PendingRiders";
 import MakeAdmin from "../pages/Dashboard/MakeAdmin/MakeAdmin";
 import Forbidden from "../pages/Forbidden";
 import AdminRoutes from "../routes/AdminRoutes";
+import RiderRoutes from "../routes/RiderRoutes";
 import AssignRider from "../pages/Dashboard/AssignRider/AssignRider";
+import PendingDeliveries from "../pages/Dashboard/PendingDeliveries/PendingDeliveries";
+import CompletedDeliveries from "../pages/Dashboard/CompletedDeliveries/CompletedDeliveries";
 // import Profile from "../pages/Dashboard/Profile/Profile";
 
 export const router = createBrowserRouter([
@@ -107,6 +110,22 @@ export const router = createBrowserRouter([
         loader: () => fetch("./serviceCenters.json"),
       },
       {
+        path: "pending-deliveries",
+        element: (
+          <RiderRoutes>
+            <PendingDeliveries />
+          </RiderRoutes>
+        ),
+      },
+      {
+        path: "completed-deliveries",
+        element: (
+          <RiderRoutes>
+            <CompletedDeliveries />
+          </RiderRoutes>
+        ),
+      },
+      {
         path: "activeRiders",
         element: (
           <AdminRoutes>
@@ -138,6 +157,7 @@ export const router = createBrowserRouter([
           </AdminRoutes>
         ),
       },
+      // Uncomment when Profile page is ready
       // {
       //   path: "profile",
       //   Component: Profile,
