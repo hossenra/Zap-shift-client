@@ -1,4 +1,4 @@
-import ProFastLogo from "../ProfastLogo/ProfastLogo";
+import ProFastLogo from "../ProFastLogo/ProFastLogo";
 
 const Footer = () => {
   return (

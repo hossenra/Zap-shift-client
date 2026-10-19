@@ -1,5 +1,5 @@
 import { NavLink, Outlet } from "react-router";
-import ProFastLogo from "../pages/shared/ProfastLogo/ProfastLogo";
+import ProFastLogo from "../pages/shared/ProFastLogo/ProFastLogo";
 import {
   FiHome,
   FiPackage,
