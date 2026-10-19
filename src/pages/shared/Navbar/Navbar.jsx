@@ -1,5 +1,5 @@
 import { Link, NavLink } from "react-router";
-import ProFastLogo from "../ProfastLogo/ProfastLogo";
+import ProFastLogo from "../ProFastLogo/ProFastLogo";
 import useAuth from "../../../hooks/useAuth";
 
 const Navbar = () => {
